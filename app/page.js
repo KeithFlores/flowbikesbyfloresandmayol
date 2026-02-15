@@ -1,65 +1,90 @@
-import Image from "next/image";
+"use client";
 
+import { Suspense } from "react";
+import { useSearchParams } from 'next/navigation';
+import WeatherView from "../components/WeatherView";
+import BikeGrid from "../components/BikeGrid";
+import MapView from "../components/MapView";
+
+/**
+ * FlowContent handles the conditional rendering based on 
+ * the URL search parameters (e.g., ?filter=weather)
+ */
+function FlowContent() {
+  const searchParams = useSearchParams();
+  const filter = searchParams.get('filter');
+  const searchQuery = searchParams.get('search');
+  
+  // Your API Keys
+  const WEATHER_KEY = "f1cf44731d273d732652c749e741f19e";
+
+  return (
+    <div className="w-full animate-in fade-in duration-700">
+      
+      {/* Dynamic Header Section */}
+      <header className="mb-12 border-l-4 border-yellow-400 pl-6">
+        <p className="text-yellow-400 text-[10px] font-black uppercase tracking-[0.4em] mb-1">
+          {searchQuery ? 'Search Protocol' : 'System Terminal'}
+        </p>
+        <h1 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white">
+          {searchQuery ? `Result: ${searchQuery}` : 
+           filter === 'weather' ? 'Live Conditions' : 
+           filter === 'maps' ? 'Route Tracker' : 
+           'The Machine Shop'}
+        </h1>
+      </header>
+
+      {/* Switching Logic: This decides which component to show */}
+      <div className="min-h-[500px]">
+        {/* 1. Weather View */}
+        {filter === 'weather' && (
+          <WeatherView apiKey={WEATHER_KEY} />
+        )}
+
+        {/* 2. Map View */}
+        {filter === 'maps' && (
+          <MapView />
+        )}
+
+        {/* 3. Default: Bike Grid (Machine Shop) */}
+        {(!filter || filter === 'bikes' || filter === 'watchlist') && (
+          <BikeGrid />
+        )}
+      </div>
+
+      {/* Footer Branding */}
+      <footer className="mt-20 pt-10 border-t border-white/5 flex justify-between items-center opacity-30 italic">
+        <p className="text-xs font-bold uppercase tracking-widest text-gray-500">
+          FlowBikes Engineering // v1.0.4
+        </p>
+        <div className="flex gap-4">
+          <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+          <div className="w-2 h-2 bg-white/20 rounded-full"></div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+/**
+ * Root Home Component wrapped in Suspense.
+ * Next.js requires useSearchParams to be inside a Suspense boundary.
+ */
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <Suspense 
+      fallback={
+        <div className="flex flex-col items-center justify-center h-96">
+          <div className="w-16 h-1 w-full max-w-[200px] bg-white/5 overflow-hidden rounded-full mb-4">
+            <div className="h-full bg-yellow-400 w-1/3 animate-[loading_1.5s_infinite_linear]"></div>
+          </div>
+          <p className="text-yellow-400 font-black italic tracking-widest text-sm animate-pulse">
+            LOADING_FLOW_SYSTEM...
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      }
+    >
+      <FlowContent />
+    </Suspense>
   );
 }
