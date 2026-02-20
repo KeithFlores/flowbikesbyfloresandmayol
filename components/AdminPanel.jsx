@@ -11,7 +11,7 @@ export default function AdminPanel() {
   const [bikes, setBikes] = useState([]);
   const [showGatekeeper, setShowGatekeeper] = useState(false);
 
-  // 1. Check if already logged in on page load
+ 
   useEffect(() => {
     const session = localStorage.getItem('flow_admin_session');
     if (session === 'active') {
@@ -84,7 +84,7 @@ export default function AdminPanel() {
     }
   };
 
-  // IF NOT LOGGED IN: Show the tiny hidden trigger button
+ 
   if (!isAdmin && !showGatekeeper) {
     return (
       <button 
@@ -96,7 +96,7 @@ export default function AdminPanel() {
     );
   }
 
-  // IF CLICKED LOCK: Show the password prompt overlay
+  
   if (!isAdmin && showGatekeeper) {
     return (
       <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-6">
@@ -123,7 +123,7 @@ export default function AdminPanel() {
     );
   }
 
-  // IF LOGGED IN: Show the actual Dashboard (Add + Manage)
+
   return (
     <div className="max-w-4xl mx-auto mb-20 p-8 glass-card rounded-[3rem] border border-yellow-400/20 bg-black/60 relative overflow-hidden">
       <div className="flex justify-between items-center mb-10 border-b border-white/10 pb-8">

@@ -7,7 +7,7 @@ export default function WeatherView() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Sample data for the graph - fits the Davao vibe
+ 
   const graphData = [
     { time: '06:00', temp: 26 },
     { time: '09:00', temp: 29 },
@@ -31,7 +31,7 @@ export default function WeatherView() {
       });
   }, []);
 
-  // --- RE-IMPLEMENTING THE GREEN ADVICE BOX ---
+  
   const getAIAdvice = (w) => {
     if (!w || !w.main) return null;
     const temp = w.main.temp;
@@ -52,7 +52,7 @@ export default function WeatherView() {
   return (
     <div className="space-y-6 animate-in fade-in duration-700">
       
-      {/* 1. TOP ADVICE BOX (Green/Yellow Dynamic) */}
+    
       <div className={`p-6 rounded-[2rem] border border-white/10 ${advice.bg} flex items-center gap-6`}>
         <div className="p-4 rounded-2xl bg-black/40 border border-white/5">
           <BrainCircuit className={advice.color} size={28} />
@@ -64,7 +64,7 @@ export default function WeatherView() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* 2. INTERACTIVE GRAPH CARD */}
+       
         <div className="lg:col-span-2 glass-card p-8 rounded-[2.5rem] bg-[#0A0A0A] border border-white/5 relative group">
           <div className="flex justify-between items-start mb-4">
             <div>
@@ -83,7 +83,7 @@ export default function WeatherView() {
                     <stop offset="95%" stopColor="#FACC15" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                {/* THE INTERACTIVE HOVER TOOLTIP */}
+              
                 <Tooltip 
                   cursor={{ stroke: '#FACC15', strokeWidth: 1, strokeDasharray: '5 5' }}
                   contentStyle={{ 
@@ -112,7 +112,7 @@ export default function WeatherView() {
           </div>
         </div>
 
-        {/* 3. QUICK STATS */}
+      
         <div className="space-y-4">
           <div className="glass-card p-6 rounded-[2rem] border border-white/5 group hover:border-yellow-400/30 transition-all">
             <div className="flex items-center gap-3 mb-2">

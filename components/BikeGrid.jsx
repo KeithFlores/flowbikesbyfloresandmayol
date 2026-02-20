@@ -6,7 +6,7 @@ import { Weight, Box, Loader2, X, Facebook, Share2, Info, Zap } from 'lucide-rea
 export default function BikeGrid() {
   const [bikes, setBikes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedBike, setSelectedBike] = useState(null); // State for the modal
+  const [selectedBike, setSelectedBike] = useState(null); 
 
   useEffect(() => {
     const fetchBikes = async () => {
@@ -17,7 +17,7 @@ export default function BikeGrid() {
     fetchBikes();
   }, []);
 
-  // Function to close modal on ESC key
+ 
   useEffect(() => {
     const handleEsc = (e) => { if (e.key === 'Escape') setSelectedBike(null); };
     window.addEventListener('keydown', handleEsc);
@@ -33,15 +33,15 @@ export default function BikeGrid() {
 
   return (
     <div className="relative">
-      {/* --- BIKE GRID --- */}
+      
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 px-2 md:px-0">
         {bikes.map((bike) => (
           <div 
             key={bike.id} 
-            onClick={() => setSelectedBike(bike)} // Open modal on click
+            onClick={() => setSelectedBike(bike)} 
             className="glass-card rounded-[1.5rem] overflow-hidden border border-white/5 bg-black hover:border-yellow-400/40 transition-all duration-500 group flex flex-col cursor-pointer"
           >
-            {/* Square Image */}
+          
             <div className="aspect-square relative overflow-hidden bg-white/5">
               <img 
                 src={bike.image_url} 
@@ -88,11 +88,11 @@ export default function BikeGrid() {
           </div>
         ))}
       </div>
-{/* --- FULL SCREEN PRODUCT MODAL --- */}
+
 {selectedBike && (
   <div className="fixed inset-0 z-[300] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 animate-in fade-in zoom-in duration-300">
     
-    {/* Fixed Close Button */}
+   
     <button 
       onClick={() => setSelectedBike(null)}
       className="fixed top-6 right-6 text-white/40 hover:text-white transition-all z-[350] bg-black/20 p-2 rounded-full border border-white/10"
@@ -100,22 +100,22 @@ export default function BikeGrid() {
       <X size={28} />
     </button>
 
-    {/* Main Modal Container */}
+   
     <div className="w-full max-w-6xl max-h-[90vh] overflow-y-auto lg:overflow-hidden bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] shadow-2xl">
       
-      {/* Grid: items-center ensures the image and text align vertically */}
+     
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center min-h-full">
         
-        {/* Left: Image Container - Fixed alignment */}
+        
         <div className="w-full h-full min-h-[400px] flex items-center justify-center bg-black/40 border-b lg:border-b-0 lg:border-r border-white/5 p-4">
           <img 
             src={selectedBike.image_url} 
-            className="w-full h-full max-h-[70vh] object-contain" // object-contain shows the WHOLE pic
+            className="w-full h-full max-h-[70vh] object-contain"
             alt={selectedBike.name} 
           />
         </div>
 
-        {/* Right: Details Container */}
+       
         <div className="p-8 md:p-12 space-y-8 h-full flex flex-col justify-center">
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-yellow-400">
@@ -130,7 +130,7 @@ export default function BikeGrid() {
             </p>
           </div>
 
-          {/* Specs Layout */}
+         
           <div className="grid grid-cols-2 gap-4">
             <div className="p-5 rounded-2xl bg-white/5 border border-white/10">
               <p className="text-[9px] text-gray-500 font-black uppercase tracking-widest mb-2">Frame Set</p>
@@ -146,7 +146,7 @@ export default function BikeGrid() {
             "Engineered for the Davao terrain, delivered to the world."
           </p>
 
-          {/* CTA Buttons */}
+         
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <a 
               href="https://www.facebook.com/people/Flow-Bikes/100071770333448/" 

@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Yellow Scrollbar */
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #0a0a0a; }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
@@ -25,7 +25,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* --- FIX FOR ANIMATION --- */
+
 @keyframes infinite-slide-right {
   0% {
     transform: translateX(-50%);
@@ -39,21 +39,20 @@ body {
   display: flex !important;
   width: max-content !important;
   flex-direction: row !important;
-  /* CHANGE THIS: Higher = Slower | Lower = Faster */
   animation: infinite-slide-right 100s linear infinite !important; 
 }
 
-/* Ensure images don't shrink */
+
 .animate-infinite-slide-right > div {
   flex-shrink: 0 !important;
 }
 
-/* Pause when hover */
+
 .group:hover .animate-infinite-slide-right {
   animation-play-state: paused;
 }
 
-/* Admin Input Style */
+
 .admin-input {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -64,7 +63,7 @@ body {
   text-transform: uppercase;
 }
 
-/* MapTiler Fixes */
+
 .maplibregl-map, .maptiler-canvas {
   position: absolute !important;
   top: 0; bottom: 0; left: 0; right: 0;
