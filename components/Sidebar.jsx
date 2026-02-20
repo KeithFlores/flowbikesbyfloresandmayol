@@ -8,7 +8,8 @@ export default function Sidebar({ isOpen, setIsOpen }) {
   const currentFilter = searchParams.get('filter');
 
   const menuItems = [
-    { icon: <Home size={18}/>, label: 'Home', href: '/', active: !currentFilter },
+    // Added 'mobileHide' property to Home
+    { icon: <Home size={18}/>, label: 'Home', href: '/', active: !currentFilter, mobileHide: true },
     { icon: <Map size={18}/>, label: 'Maps', href: '/?filter=maps', active: currentFilter === 'maps' },
     { icon: <CloudSun size={18}/>, label: 'Weather', href: '/?filter=weather', active: currentFilter === 'weather' },
     { icon: <Bike size={18}/>, label: 'Bikes', href: '/?filter=bikes', active: currentFilter === 'bikes' },
@@ -29,13 +30,14 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             key={item.label} 
             href={item.href}
             onClick={() => setIsOpen(false)}
-            className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${
+            // 'hidden lg:flex' applied if mobileHide is true, otherwise 'flex'
+            className={`${item.mobileHide ? 'hidden lg:flex' : 'flex'} items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 ${
               item.active 
                 ? 'bg-yellow-400 text-black font-bold shadow-[0_0_20px_rgba(250,204,21,0.2)]' 
-                : 'text-gray-500 hover:text-white hover:bg-white/5'
+                : 'text-gray-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <span className={item.active ? 'text-black' : 'text-gray-500'}>{item.icon}</span>
+            <span className={item.active ? 'text-black' : ''}>{item.icon}</span>
             <span className="text-[11px] uppercase font-black italic tracking-[0.2em]">{item.label}</span>
           </Link>
         ))}
